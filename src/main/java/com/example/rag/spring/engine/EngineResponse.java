@@ -10,24 +10,24 @@ public class EngineResponse {
 
 	private final ChatResponse chatResponse;
 
-	private final List<Document> documents;
+	private final List<Document> retrievedDocuments;
 
 	public EngineResponse(ChatResponse chatResponse, List<Document> documents) {
 		this.chatResponse = chatResponse;
-		this.documents = documents;
+		this.retrievedDocuments = documents;
 	}
 
 	public ChatResponse getChatResponse() {
 		return chatResponse;
 	}
 
-	public List<Document> getDocuments() {
-		return documents;
+	public List<Document> getRetrievedDocuments() {
+		return retrievedDocuments;
 	}
 
 	@Override
 	public String toString() {
-		return "EngineResponse{" + "chatResponse=" + chatResponse + ", documents=" + documents + '}';
+		return "EngineResponse{" + "chatResponse=" + chatResponse + ", documents=" + retrievedDocuments + '}';
 	}
 
 	@Override
@@ -36,12 +36,12 @@ public class EngineResponse {
 			return true;
 		if (!(o instanceof EngineResponse that))
 			return false;
-		return Objects.equals(chatResponse, that.chatResponse) && Objects.equals(documents, that.documents);
+		return Objects.equals(chatResponse, that.chatResponse) && Objects.equals(retrievedDocuments, that.retrievedDocuments);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chatResponse, documents);
+		return Objects.hash(chatResponse, retrievedDocuments);
 	}
 
 }

@@ -6,8 +6,8 @@ spring:
   ai:
     azure:
       openai:
-        api-key:
-        endpoint:
+        api-key: 8f12d8cb5af346d5ba8e342d0e16a2ba
+        endpoint: https://springai.openai.azure.com/
         chat:
           options:
-            deployment-name:
+            deployment-name: gpt-35-turbo-16k
