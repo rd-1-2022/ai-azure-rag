@@ -30,6 +30,7 @@ public class DataLoadingService {
 	}
 
 	public void load() {
+		// Extract
 		PagePdfDocumentReader pdfReader = new PagePdfDocumentReader(this.pdfResource,
 				PdfDocumentReaderConfig.builder()
 					.withPageExtractedTextFormatter(ExtractedTextFormatter.builder()
@@ -38,11 +39,13 @@ public class DataLoadingService {
 						.build())
 					.withPagesPerDocument(1)
 					.build());
-
+		// Transform
 		var tokenTextSplitter = new TokenTextSplitter();
 
 		logger.info(
 				"Parsing document, splitting, creating embeddings and storing in vector store...  this will take a while.");
+
+		// Load
 		this.vectorStore.accept(tokenTextSplitter.apply(pdfReader.get()));
 		logger.info("Done parsing document, splitting, creating embeddings and storing in vector store");
 
