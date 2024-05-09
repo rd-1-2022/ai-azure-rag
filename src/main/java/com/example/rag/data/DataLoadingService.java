@@ -2,6 +2,8 @@ package com.example.rag.data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ai.chat.prompt.transformer.TransformerContentType;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 @Service
 public class DataLoadingService {
@@ -43,10 +47,19 @@ public class DataLoadingService {
 		var tokenTextSplitter = new TokenTextSplitter();
 
 		logger.info(
-				"Parsing document, splitting, creating embeddings and storing in vector store...  this will take a while.");
+				"Parsing document, splitting, creating embeddings and storing in vector store...");
+
+		List<Document> splitDocuments = tokenTextSplitter.apply(pdfReader.get());
+		// tag as external knowledge in the vector store's metadata
+		for (Document splitDocument : splitDocuments) {
+			splitDocument.getMetadata().put(TransformerContentType.EXTERNAL_KNOWLEDGE, "true");
+			splitDocument.getMetadata().put("filename", pdfResource.getFilename());
+			splitDocument.getMetadata().put("version", 1);
+		}
 
 		// Load
-		this.vectorStore.accept(tokenTextSplitter.apply(pdfReader.get()));
+		this.vectorStore.accept(splitDocuments);
+
 		logger.info("Done parsing document, splitting, creating embeddings and storing in vector store");
 
 	}

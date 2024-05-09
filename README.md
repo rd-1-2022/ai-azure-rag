@@ -81,11 +81,10 @@ The UI tool [DBeaver](https://dbeaver.io/download/) is also a useful GUI for pos
 ./mvnw spring-boot:run
 ```
 
-## Access the endpoints
 
 The first thing you should do is load the data.  The examples show usage with the [HTTPie](https://httpie.io/) command line utility as it simplifies sending HTTP requests with data as compared to curl.
 
-### Loading, counting and deleting data
+## Loading, counting and deleting data
 
 ```shell
 http POST http://localhost:8080/data/load
@@ -102,12 +101,12 @@ If you want to start over, for example because you changed in the code which doc
 http POST http://localhost:8080/data/delete
 ```
 
-### Q&A over the document using QueryEngine
+## Chat with the document
 
-Send your question to the QueryEngine using
+Send your question to the Carina ChatBot using
 
 ```shell
-http --body --unsorted localhost:8080/qa/engine question=="What is the purpose of Carina?"
+http --body --unsorted localhost:8080/rag/chatbot question=="What is the purpose of Carina?"
 
 ```
 
@@ -116,44 +115,7 @@ The response is
 ```json
 {
     "question": "What is the purpose of Carina?",
-    "answer": "The purpose of Carina is to provide a safe, easy-to-use, online location-based care matching service. It serves individuals and families searching for home care or child care, as well as care professionals looking for good jobs. Carina is committed to building community and prioritizing people over profit."
-}
-
-```
-
-### Q&A over the document
-
-Send you question to the AI Model using
-
-```shell
-http --body --unsorted localhost:8080/qa message==<insert question here>
-```
-
-Note that there are two equal signs `==` , that separate the key-value pairs
-
-To ask the same question but without the similar documents stuffing the prompt, that is, not using the RAG pattern,
-
-```shell
-http --body --unsorted http://localhost:8080/qa message==<insert question here> stuffit==false
-```
-
-#### Examples
-
-```shell
-$ http --body --unsorted localhost:8080/qa question=="What is the purpose of Carina?"
-{
-    "question": "What is the purpose of Carina?",
-    "answer": "The purpose of Carina is to provide a safe and easy-to-use online care matching service. It aims to connect care providers with individuals and families who are in need of home care or child care services. Carina prioritizes building community and supporting care workers by bringing good jobs to them. Its goal is to strengthen the care economy and support workers, individuals, and families in the process."
-}
-```
-
-and without stuffing the prompt
-
-```shell
-$ http --body --unsorted localhost:8080/qa question=="What is the purpose of Carina?" stuffit==false
-{
-    "question": "What is the purpose of Carina?",
-    "answer": "Carina is a constellation located in the southern sky. It does not have a specific purpose, but like other constellations, it serves as a way to organize and identify stars in the night sky. Constellations have been used for navigation, storytelling, and scientific observation throughout history."
+    "answer": "The purpose of Carina is to provide a safe and easy-to-use online platform for individuals and families to find home care or child care services. It also helps care professionals, known as Individual Providers (IPs), to connect with individuals and families in need of care. Carina aims to strengthen communities by prioritizing people and supporting care workers."
 }
 
 ```
