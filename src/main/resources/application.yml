@@ -6,7 +6,8 @@ spring:
   ai:
     azure:
       openai:
-        endpoint: https://springai.openai.azure.com/
+        endpoint: https://spring-ai-pollack.openai.azure.com/
         chat:
           options:
-            deployment-name: gpt-35-turbo-16k
+            deployment-name: gpt-4o
+        api-key: <insert here>

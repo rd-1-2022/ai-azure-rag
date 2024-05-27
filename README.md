@@ -106,7 +106,7 @@ http POST http://localhost:8080/data/delete
 Send your question to the Carina ChatBot using
 
 ```shell
-http --body --unsorted localhost:8080/rag/chatbot question=="What is the purpose of Carina?"
+http --body --unsorted localhost:8080/rag/chat question=="What is the purpose of Carina?"
 
 ```
 

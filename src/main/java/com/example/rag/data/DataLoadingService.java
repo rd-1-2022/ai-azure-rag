@@ -2,7 +2,6 @@ package com.example.rag.data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ai.chat.prompt.transformer.TransformerContentType;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
@@ -52,7 +51,6 @@ public class DataLoadingService {
 		List<Document> splitDocuments = tokenTextSplitter.apply(pdfReader.get());
 		// tag as external knowledge in the vector store's metadata
 		for (Document splitDocument : splitDocuments) {
-			splitDocument.getMetadata().put(TransformerContentType.EXTERNAL_KNOWLEDGE, "true");
 			splitDocument.getMetadata().put("filename", pdfResource.getFilename());
 			splitDocument.getMetadata().put("version", 1);
 		}
