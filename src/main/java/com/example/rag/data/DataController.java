@@ -27,6 +27,7 @@ public class DataController {
 	@PostMapping("/load")
 	public ResponseEntity<String> load() {
 		try {
+			System.out.println("Creating embeddings and loading data");
 			this.dataLoadingService.load();
 			return ResponseEntity.ok("Data loaded successfully!");
 		}

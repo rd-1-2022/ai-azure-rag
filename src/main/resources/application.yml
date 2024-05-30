@@ -10,4 +10,4 @@ spring:
         chat:
           options:
             deployment-name: gpt-4o
-        api-key: <insert here>
+        api-key: b80fa99a2dbb4995bf52cb8539537493
